@@ -2,7 +2,8 @@
 #include "socklisten.h"
 
 int main() {
-    socklisten s;
+    sockqueue q;
+    socklisten s(&q);
     s.run();
     return 0;
 }

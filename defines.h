@@ -1,8 +1,13 @@
+#ifndef DEFINES
+
+#include <netinet/ip.h>    //Provides declarations for ip header
+
 /*===================================================================
   =                                                                 =
   =                           **MACROS**                            =
   =                                                                 =
   ===================================================================*/
+
 
 
 #define BUF_SIZE 65536 //2^16 
@@ -20,3 +25,13 @@ enum IPPROTO {
   TCP = 6,
   UDP	=17
 };
+
+
+typedef struct IPPACK{
+  struct iphdr *ip;
+  unsigned char *rawpack;
+}IPPACK;
+
+#endif 
+
+
