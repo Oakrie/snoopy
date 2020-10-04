@@ -3,8 +3,8 @@ CXX=g++
 
 OBJECTS=main.o socklisten.o
 
-sniffer: $(OBJECTS)
-	$(CXX) -o sniffer $(OBJECTS)
+snoopy: $(OBJECTS)
+	$(CXX) -o snoopy $(OBJECTS)
 
 main.o: main.cpp defines.h
 	$(CXX) -c main.cpp -o main.o 
@@ -15,4 +15,4 @@ socklisten.o: socklisten.cpp socklisten.h
 
 .PHONY: clean
 clean:
-	rm *.o sniffer
+	rm *.o snoopy
