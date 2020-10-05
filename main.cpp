@@ -1,9 +1,16 @@
 #include<iostream>
 #include "socklisten.h"
+#include "queuereader.h"
+#include "threadlist.h"
+
+
 
 int main() {
     sockqueue q;
-    socklisten s(&q);
-    s.run();
+    threadlist *t = new threadlist;
+    socklisten s(&q, t);
+    reader r(&q, t);
+    t->start();
+    printf("yeet\n");
     return 0;
 }

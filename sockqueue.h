@@ -1,18 +1,19 @@
 #ifndef SOCKQUEUE
+#define SOCKQUEUE
+
 #include <netinet/ip.h>    //Provides declarations for ip header
 #include <queue>
 #include "defines.h"
 
-
-class sockqueue{
+class sockqueue {
 
     public:
-        IPPACK *pop();
-        void push(IPPACK *);
+        struct IPPACK *pop();
+        void push(struct IPPACK *);
         int size();
 
     private:
-        std::queue <IPPACK *> que;
+        std::queue <struct IPPACK *> que;
 
 
 };

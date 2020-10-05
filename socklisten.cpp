@@ -13,7 +13,8 @@
 
 extern int errno;
 
-socklisten::socklisten(sockqueue *s){
+socklisten::socklisten(sockqueue *s, threadlist *t){
+    _thr = t;
     _que = s;
     buf = new unsigned char[BUF_SIZE];   
     addrlen = new socklen_t;
@@ -23,6 +24,7 @@ socklisten::socklisten(sockqueue *s){
     TCP_count  = 0;
     UDP_count  = 0;
     np_count   = 0;
+    _thr->attatch(this);
 }
 
 socklisten::~socklisten(){
@@ -84,16 +86,11 @@ void socklisten::process_packet(){
 }
 
 void socklisten::load_queue(struct iphdr *ip){
-    IPPACK *packet = new IPPACK;
+    struct IPPACK *packet = new struct IPPACK;
     packet->ip = new struct iphdr;
-    packet->rawpack = new unsigned char [ip->tot_len];
+    packet->rawpack = new unsigned char [ip->tot_len-ip->ihl];
     memcpy(packet->ip, ip, sizeof(ip));
-    memcpy(packet->rawpack, buf, ip->tot_len);
-
+    memcpy(packet->rawpack, buf+ip->ihl, ip->tot_len-ip->ihl);
     _que->push(packet);
-    printf("PACK %d\n", packet->ip->tot_len);
-
-    IPPACK *test = _que->pop();
-    printf("PACK %d\n", test->ip->tot_len);
-
+    
 }

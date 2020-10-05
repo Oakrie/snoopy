@@ -1,4 +1,5 @@
 #ifndef DEFINES
+#define DEFINES
 
 #include <netinet/ip.h>    //Provides declarations for ip header
 
@@ -27,10 +28,10 @@ enum IPPROTO {
 };
 
 
-typedef struct IPPACK{
+struct IPPACK{
   struct iphdr *ip;
   unsigned char *rawpack;
-}IPPACK;
+};
 
 #endif 
 

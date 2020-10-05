@@ -1,19 +1,23 @@
 #ifndef SOCKLISTEN
+#define SOCKLISTEN
 
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <thread>
 #include "sockqueue.h"
+#include "threadlist.h"
 
 
-class socklisten {
+class socklisten : public threadlist {
 
     public:
-        socklisten(sockqueue *s);
+        socklisten(sockqueue *s, threadlist *t);
         ~socklisten();
         void run();
 
     private:
+        threadlist *_thr;
         sockqueue *_que;
         void process_packet();
         void load_queue(struct iphdr *ip);
