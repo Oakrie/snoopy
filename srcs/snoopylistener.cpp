@@ -5,17 +5,17 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <iostream>
-
-#include "socklisten.h"
 #include <errno.h>
-
 #include <cstring>
+
+#include "snoopylistener.h"
+#include "snoopy.h"
 
 extern int errno;
 
-socklisten::socklisten(sockqueue *s, threadlist *t){
-    _thr = t;
-    _que = s;
+snoopylistener::snoopylistener(snoopyqueue *sq, snoopy *s){
+    _snoopy = s;
+    _que = sq;
     buf = new unsigned char[BUF_SIZE];   
     addrlen = new socklen_t;
     addr = new struct sockaddr;
@@ -24,16 +24,16 @@ socklisten::socklisten(sockqueue *s, threadlist *t){
     TCP_count  = 0;
     UDP_count  = 0;
     np_count   = 0;
-    _thr->attatch(this);
+    // _thr->attach((void *()) &socklisten::run, this);
 }
 
-socklisten::~socklisten(){
+snoopylistener::~snoopylistener(){
     delete buf;
     delete addrlen;
     delete addr;
 }
 
-void socklisten::start(){
+void snoopylistener::run(){
     //open a 
     int sockfd = socket( AF_PACKET , SOCK_RAW , htons(ETH_P_ALL));
     int rc;
@@ -49,7 +49,7 @@ void socklisten::start(){
     }
 }
 
-void socklisten::process_packet(){
+void snoopylistener::process_packet(){
     unsigned short iphdrlen;
     struct iphdr *ip = (struct iphdr*)(buf + sizeof(struct ethhdr));
     switch (ip->protocol)
@@ -85,7 +85,7 @@ void socklisten::process_packet(){
     printf("ICMP: %d, IGMP: %d, TCP: %d, UDP: %d np: %d\n",ICMP_count, IGMP_count, TCP_count, UDP_count,np_count);
 }
 
-void socklisten::load_queue(struct iphdr *ip){
+void snoopylistener::load_queue(struct iphdr *ip){
     struct IPPACK *packet = new struct IPPACK;
     packet->ip = new struct iphdr;
     packet->rawpack = new unsigned char [ip->tot_len-ip->ihl];

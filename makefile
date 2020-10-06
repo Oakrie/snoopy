@@ -1,26 +1,35 @@
 
 CXX=g++
 COPT= -lpthread
-
-OBJECTS=main.o socklisten.o sockqueue.o queuereader.o threadlist.o
+SRC= ./srcs
+BUILD = ./build
+HOME = .
+OBJECTS=main.o snoopylistener.o snoopyqueue.o snoopyreader.o threadable.o
 
 snoopy: $(OBJECTS)
-	$(CXX) -o snoopy $(OBJECTS) $(COPT) 
+	cd $(BUILD)
+	$(CXX) -o snoopy $(OBJECTS) $(COPT)
+	mv snoopy $(HOME) 
 
-main.o: main.cpp defines.h
-	$(CXX) -c main.cpp -o main.o 
+main.o: $(SRC)/main.cpp $(SRC)/defines.h
+	$(CXX) -c $(SRC)/main.cpp -o $(SRC)/main.o 
+	mv $(SRC)/main.o $(BUILD)
 
-socklisten.o: socklisten.cpp socklisten.h
-	$(CXX) -c socklisten.cpp -o socklisten.o $(COPT) 
+snoopylistener.o: $(SRC)/snoopylistener.cpp $(SRC)/snoopylistener.h
+	$(CXX) -c $(SRC)/snoopylistener.cpp -o $(SRC)/snoopylistener.o $(COPT) 
+	mv $(SRC)/snoopylistener.o $(BUILD)
 
-sockqueue.o: sockqueue.cpp sockqueue.h
-	$(CXX) -c sockqueue.cpp -o sockqueue.o 
+snoopyqueue.o: snoopyqueue.cpp snoopyqueue.h
+	$(CXX) -c $(SRC)/snoopyqueue.cpp -o $(SRC)/snoopyqueue.o 
+	mv $(SRC)/snoopyqueue.o $(BUILD)
 
-queuereader.o: queuereader.cpp queuereader.h
-	$(CXX) -c queuereader.cpp -o queuereader.o $(COPT) 
+snoopyreader.o: $(SRC)/snoopyreader.cpp $(SRC)/snoopyreader.h
+	$(CXX) -c $(SRC)/snoopyreader.cpp -o $(SRC)/snoopyreader.o $(COPT) 
+	mv $(SRC)/snoopyreader.o $(BUILD)
 
-threadlist.o: threadlist.cpp threadlist.h
-	$(CXX) -c threadlist.cpp -o threadlist.o $(COPT) 
+threadable.o: $(SRC)/threadable.cpp $(SRC)/threadable.h
+	$(CXX) -c $(SRC)/threadable.cpp -o $(SRC)/threadable.o $(COPT) 
+	mv $(SRC)/threadable.o $(BUILD)
 
 .PHONY: clean
 clean:

@@ -5,7 +5,7 @@
 #include <queue>
 #include "defines.h"
 
-class sockqueue {
+class snoopyqueue {
 
     public:
         struct IPPACK *pop();

@@ -5,20 +5,21 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <thread>
-#include "sockqueue.h"
-#include "threadlist.h"
+#include "snoopyqueue.h"
+#include "threadable.h"
+#include "snoopy.h"
 
 
-class socklisten : public threadlist {
+class snoopylistener : public threadable {
 
     public:
-        socklisten(sockqueue *s, threadlist *t);
-        ~socklisten();
-        virtual void start();
+        snoopylistener(snoopyqueue *s, snoopy *t);
+        ~snoopylistener();
+        void run();
 
     private:
-        threadlist *_thr;
-        sockqueue *_que;
+        snoopy *_snoopy;
+        snoopyqueue *_que;
         void process_packet();
         void load_queue(struct iphdr *ip);
         unsigned char *buf;

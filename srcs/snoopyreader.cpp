@@ -1,27 +1,28 @@
-#include "queuereader.h"
 #include <thread>
+#include "snoopyreader.h"
 
-reader::reader(sockqueue *s, threadlist *t){
-    _thr = t;
-    _que = s;
+
+snoopyreader::snoopyreader(snoopyqueue *sq, snoopy *s){
+    _snoopy = s;
+    _snoopyqueue = sq;
     currpack = new struct IPPACK;
     loggerNew = false;
     customNew = false;
-    _thr->attatch(this);
+    // _thr->attach((void*) &reader::run, this );
 }
 
-reader::~reader(){
+snoopyreader::~snoopyreader(){
     if(currpack != nullptr)
         delete currpack;
 }
 
-void reader::start(){
-    std::thread logThread(&reader::sendlogger, this);
+void snoopyreader::run(){
+    // std::thread logThread(&reader::sendlogger, this);
     loggerNew = true;
     logThread.join();
 }
 
-void reader::sendlogger(){
+void snoopyreader::sendlogger(){
     while(1){
         while(!loggerNew);
         printf("Gamer time logger \n");

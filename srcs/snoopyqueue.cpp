@@ -2,22 +2,22 @@
 #include <queue>
 #include <sys/socket.h> 
 #include <thread>
-#include "sockqueue.h"
+#include "snoopyqueue.h"
 
 
 
-struct IPPACK *sockqueue::pop(){
+struct IPPACK *snoopyqueue::pop(){
     //TODO: When multithread add mutex
     struct IPPACK *ret = que.front();
     que.pop();
     return ret;
 }
 
-void sockqueue::push(struct IPPACK *ip){
+void snoopyqueue::push(struct IPPACK *ip){
     //TODO: When multithread add mutex
     que.push(ip);
 }
 
-int sockqueue::size(){
+int snoopyqueue::size(){
     return que.size();
 }

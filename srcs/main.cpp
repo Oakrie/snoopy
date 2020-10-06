@@ -1,7 +1,7 @@
 #include<iostream>
-#include "socklisten.h"
-#include "queuereader.h"
-#include "threadlist.h"
+#include "snoopylistener.h"
+#include "snoopyreader.h"
+#include "threadable.h"
 
 
 
