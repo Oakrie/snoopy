@@ -10,7 +10,7 @@ class threadlist{
     public:
         threadlist();
         ~threadlist();
-        void run();
+        void run(threadlist *tl);
         void start();
         void attatch(threadlist *t);
     private:

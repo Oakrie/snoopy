@@ -15,7 +15,7 @@ reader::~reader(){
         delete currpack;
 }
 
-void reader::run(){
+void reader::start(){
     std::thread logThread(&reader::sendlogger, this);
     loggerNew = true;
     logThread.join();

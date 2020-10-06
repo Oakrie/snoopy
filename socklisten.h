@@ -14,7 +14,7 @@ class socklisten : public threadlist {
     public:
         socklisten(sockqueue *s, threadlist *t);
         ~socklisten();
-        void run();
+        virtual void start();
 
     private:
         threadlist *_thr;

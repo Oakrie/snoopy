@@ -8,7 +8,7 @@ class reader : public threadlist{
     public:
         reader(sockqueue *s, threadlist *t);
         ~reader();
-        void run();
+        virtual void start();
     private:
         threadlist *_thr;
         sockqueue *_que;

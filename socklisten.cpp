@@ -33,7 +33,7 @@ socklisten::~socklisten(){
     delete addr;
 }
 
-void socklisten::run(){
+void socklisten::start(){
     //open a 
     int sockfd = socket( AF_PACKET , SOCK_RAW , htons(ETH_P_ALL));
     int rc;

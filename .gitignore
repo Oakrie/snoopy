@@ -1,2 +1,3 @@
 *.o
 snoopy
+.vscode
