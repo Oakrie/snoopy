@@ -13,7 +13,7 @@ OBJECTS=$(SRC)/main.o \
 
 snoopy: $(OBJECTS)
 	$(CXX) -o snoopy $(OBJECTS) $(COPT)
-	mv *.o snoopy $(BUILD) 
+	mv $(SRC)/*.o snoopy $(BUILD) 
 
 main.o: $(SRC)/main.cpp $(SRC)/defines.h
 	$(CXX) -c $(SRC)/main.cpp -o $(SRC)/main.o 
@@ -35,4 +35,4 @@ snoopy.o: $(SRC)/snoopy.cpp $(SRC)/snoopy.h
 
 .PHONY: clean
 clean:
-	rm $(BUILD)/*.o $(BUILD)/snoopy $(SRC)/*.o
+	rm $(BUILD)/*.o $(BUILD)/snoopy
