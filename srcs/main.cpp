@@ -1,16 +1,19 @@
 #include<iostream>
+#include "snoopy.h"
 #include "snoopylistener.h"
 #include "snoopyreader.h"
+#include "snoopyqueue.h"
 #include "threadable.h"
 
 
 
 int main() {
-    sockqueue q;
-    threadlist *t = new threadlist;
-    socklisten s(&q, t);
-    reader r(&q, t);
-    t->start();
+    snoopyqueue q;
+    snoopy *_snoopy = new snoopy;
+    snoopylistener s(&q, _snoopy);
+    snoopyreader r(&q, _snoopy);
+    printf("yeet\n");
+    _snoopy->start();
     printf("yeet\n");
     return 0;
 }

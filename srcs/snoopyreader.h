@@ -6,6 +6,7 @@
 #include "snoopyqueue.h"
 
 class snoopyreader : public threadable{
+    MAGIC_WORD_FOR_THREAD;
     public:
         snoopyreader(snoopyqueue *sq, snoopy *s);
         ~snoopyreader();

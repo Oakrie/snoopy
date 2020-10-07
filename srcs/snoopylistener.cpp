@@ -8,6 +8,8 @@
 #include <errno.h>
 #include <cstring>
 
+#include <thread>
+#include "threadable.h"
 #include "snoopylistener.h"
 #include "snoopy.h"
 
@@ -24,7 +26,7 @@ snoopylistener::snoopylistener(snoopyqueue *sq, snoopy *s){
     TCP_count  = 0;
     UDP_count  = 0;
     np_count   = 0;
-    // _thr->attach((void *()) &socklisten::run, this);
+    _snoopy->addProcess((threadable *)this);
 }
 
 snoopylistener::~snoopylistener(){

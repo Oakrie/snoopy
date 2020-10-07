@@ -1,5 +1,6 @@
 #include <thread>
 #include "snoopyreader.h"
+#include "snoopy.h"
 
 
 snoopyreader::snoopyreader(snoopyqueue *sq, snoopy *s){
@@ -8,7 +9,7 @@ snoopyreader::snoopyreader(snoopyqueue *sq, snoopy *s){
     currpack = new struct IPPACK;
     loggerNew = false;
     customNew = false;
-    // _thr->attach((void*) &reader::run, this );
+    _snoopy->addProcess((threadable *)this);
 }
 
 snoopyreader::~snoopyreader(){
@@ -19,7 +20,7 @@ snoopyreader::~snoopyreader(){
 void snoopyreader::run(){
     // std::thread logThread(&reader::sendlogger, this);
     loggerNew = true;
-    logThread.join();
+    // logThread.join();
 }
 
 void snoopyreader::sendlogger(){

@@ -11,7 +11,8 @@
 
 
 class snoopylistener : public threadable {
-
+    MAGIC_WORD_FOR_THREAD;
+    
     public:
         snoopylistener(snoopyqueue *s, snoopy *t);
         ~snoopylistener();

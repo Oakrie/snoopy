@@ -2,27 +2,39 @@
 #define THREADLIST
 
 #include <vector>
+#include <thread>
 #include "defines.h"
 
 class executioner{
-    public:
-        virtual void EXECUTE();
-    
-    #define THREADER \
-    public: void EXECUTE(){ \
-        run(); \
-    }
-
+public:
+	executioner(){}
+	virtual ~executioner(){}
+	virtual void EXECRUN(){}
 };
 
+#define MAGIC_WORD_FOR_THREAD \
+public: void EXECRUN() \
+{ \
+	try \
+	{ \
+		run(); \
+	} \
+	catch(...) \
+	{ \
+		throw; \
+	} \
+}
 
-class threadable: public executioner{
+
+class threadable: virtual public executioner{
     public:
-        threadlist();
-        ~threadlist();
-        void start();
+        threadable();
+        ~threadable();
+        std::thread start();
+		void stop();
     private:
-        void *_run(void *thread);
+		std::thread *_thr;
+        static void *_run(threadable *thread);
 };
 
 #endif
