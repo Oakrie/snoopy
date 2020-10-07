@@ -12,6 +12,7 @@ OBJECTS=$(SRC)/main.o \
 		$(SRC)/snoopy.o
 
 snoopy: $(OBJECTS)
+	mkdir $(BUILD)
 	$(CXX) -o snoopy $(OBJECTS) $(COPT)
 	mv $(SRC)/*.o snoopy $(BUILD) 
 
@@ -35,4 +36,4 @@ snoopy.o: $(SRC)/snoopy.cpp $(SRC)/snoopy.h
 
 .PHONY: clean
 clean:
-	rm $(BUILD)/*.o $(BUILD)/snoopy
+	rm -r $(BUILD)
